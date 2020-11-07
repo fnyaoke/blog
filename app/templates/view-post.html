@@ -1,0 +1,37 @@
+{% extends "macros.html"%}
+{% block content %}
+<div class="container">
+  <h3>{{ posts.title }}</h3>
+  <p>{{posts.content}}</p>
+
+       <!-- comments -->
+       <div class="col-md-6 col-offset-1">
+          <a class="btn btn-round" href="{{url_for('.upvote',id=posts.id,vote_type=1)}}">Like <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true">{{count_likes}}</span>  </a></h4>
+          <a class="btn btn-round" href="{{url_for('.upvote',id=posts.id,vote_type=2)}}">Don't Like <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span> {{count_dislikes}} </a></h4>
+          <br>
+        </div>
+          {% if posts.user_id == current_user.id %}
+            <div >
+              <a class="btn btn-secondary btn-sm mt-1 m-0" href="{{url_for('main.update_post', id=posts.id)}}">Update post</a>
+              <a class="danger btn btn-secondary btn-sm m-1 " href="{{url_for('main.delete_post', id=posts.id)}}">DELETE Post</a>
+            </div>
+          {% endif %}
+          <br>
+   </div>
+   <a class="btn btn-info btn-sm" href="{{url_for('.post_comment',id=posts.id)}}">Comment</a></h4>
+        <h4>Comments:</h4> 
+    <div class="comments">
+
+        {% if comment %}
+        {%  for items in comment %}
+         <h5>{{ items.opinion }}</h5>
+
+         <em><small>by {{ items.user.username}}</small></em>
+         <br>
+         <hr>
+        {% endfor %}
+        {%else%}
+        <h3>No Comments yet </h3>
+        {% endif %}
+    </div>
+{% endblock %}

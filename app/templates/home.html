@@ -1,0 +1,24 @@
+
+{% extends "macros.html"%}
+{% block content%}
+<!-- <div class="jumbotron">    -->
+  <hr><h4 class="text-center">QUOTE OF THE DAY</h4>
+    <h5 class="bg-info text-center" style="color: rgb(71, 5, 5)";><em>{{ quote.quote}}</em></h5>
+    <p><small style="color: rgb(4, 3, 73);text-align: center;"><strong>--Author</strong> {{quote.author}}</small></p>
+
+<!-- </div> -->
+<br>
+{%  for post in posts %}
+<article class="media content-section">
+<div class="media-body">
+  <div class="article-metadata">
+    <h2> <a class="article-title" href="{{url_for('.view_post',id=post.id)}}">{{ post.title }}</a> </h2>
+    <small><a class="mr-2" href="#">{{ post.category }}</a></small>
+    <small class="text-muted">Posted by {{ post.user.username }}</small>
+  </div>
+  <p class="article-content">{{ post.content }}</p>
+  <p><a class="btn btn-info" href="{{url_for('.view_post',id=post.id)}}">Add your comment</a></p>
+</div></article>
+
+{%  endfor %}
+{% endblock%}
