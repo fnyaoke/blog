@@ -8,6 +8,10 @@ Florence Nyaoke
 
 A blog app where users can create accounts, create blogs, comment on other users blogs and update there own posts
 
+## Live Link
+
+The site can be viewed on 'https://nasblog.herokuapp.com/'
+
 ## Technologies Used
 
 - Python
