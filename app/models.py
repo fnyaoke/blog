@@ -6,8 +6,8 @@ from . import login_manager
 
 
 class User(UserMixin, db.Model):
-    """ 
-    class modelling the users 
+    """
+    class modelling the users
     """
 
     __tablename__='users'
@@ -22,8 +22,6 @@ class User(UserMixin, db.Model):
     posts = db.relationship("Post", backref="user", lazy = "dynamic")
     comment = db.relationship("Comments", backref="user", lazy = "dynamic")
     vote = db.relationship("Votes", backref="user", lazy = "dynamic")
-
-  
 
     # securing passwords
     @property
@@ -58,9 +56,6 @@ class Post(db.Model):
     user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
     comment = db.relationship("Comments", backref="posts", lazy = "dynamic")
     vote = db.relationship("Votes", backref="posts", lazy = "dynamic")
-
-
-    
 
 
     def save_post(self):
