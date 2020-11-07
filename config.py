@@ -1,7 +1,7 @@
 import os
 
 class Config:
-    SQLALCHEMY_DATABASE_URI ='postgres://moringa:Access@localhost:5432/pitches'
+    SQLALCHEMY_DATABASE_URI ='postgres://moringa:123@localhost:5432/blogs'
     SQLALCHEMY_TRACK_MODIFICATIONS=True
     SECRET_KEY = 'my12345key67890secret'
 

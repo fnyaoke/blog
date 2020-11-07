@@ -54,7 +54,7 @@ class Post(db.Model):
     title = db.Column(db.String())
     content = db.Column(db.String())
     user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
-    comment = db.relationship("Comments", backref="posts", lazy = "dynamic")
+    #comment = db.relationship("Comments", backref="posts", lazy = "dynamic")
     vote = db.relationship("Votes", backref="posts", lazy = "dynamic")
 
 
@@ -91,7 +91,8 @@ class Comments(db.Model):
     opinion = db.Column(db.String(255))
     time_posted = db.Column(db.DateTime, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-    posts_id = db.Column(db.Integer, db.ForeignKey("posts.id"))
+    #posts_id = db.Column(db.Integer, db.ForeignKey("posts.id"))
+    posts_id = db.Column(db.Integer)
 
 
     def save_comment(self):
@@ -102,8 +103,9 @@ class Comments(db.Model):
         db.session.commit()
 
     @classmethod
-    def get_comments(self, id):
-        comment = Comments.query.filter_by(posts_id=id).all()
+    def get_comments(self):
+        # comment = Comments.query.filter_by(posts_id=id).all()
+        comment = Comments.query.all()
         
         return comment
 

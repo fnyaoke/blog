@@ -72,7 +72,7 @@ def new_post():
         db.session.add(new_post)
         db.session.commit()
 
-        flash(f'Your post was created succesfully !', 'success')
+        flash(f'Your post was created successfully !', 'success')
 
         return redirect(url_for('main.home'))
 
@@ -112,17 +112,27 @@ def view_post(id):
     Function the returns a single post for a comment to be added
     """
     # all_category = postCategory.get_categories()
-    posts = Post.query.get(id)
+    # posts = Post.query.get(id)
+    posts = Post.query.filter_by(id=id).first()
+    print(posts)
 
     if posts is None:
 
         abort(404)
-    
-    comment = Comments.get_comments(id)
-    print(comment)
+    posted_id = posts.id
+    print(posted_id)
+    # comment = Comments.get_comments(id)
+    getComments = []
+    comments = Comments.get_comments()
+    print(comments)
+    for comment in comments:
+        if comment.posts_id == posted_id:
+            getComments.insert(0,comment)
+    print(getComments)
+
     count_likes = Votes.query.filter_by(posts_id=id, vote=1).all()
     count_dislikes = Votes.query.filter_by(posts_id=id, vote=2).all()
-    return render_template('view-post.html', posts = posts, comment = comment, count_likes=len(count_likes), count_dislikes=len(count_dislikes))
+    return render_template('view-post.html', posts = posts, comment = getComments, count_likes=len(count_likes), count_dislikes=len(count_dislikes))
 
 
 #Routes upvoting/downvoting posts
@@ -169,7 +179,7 @@ def update_post(id):
         post.content = form.content.data
         db.session.commit()
 
-        flash('Your Post has been updated succesfull', 'success')
+        flash('Your Post has been updated successfull', 'success')
 
         return redirect(url_for('main.view_post', id = post.id))
 
